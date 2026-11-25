@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saffron Line — a cooking game</title>
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div id="brand">SAFFRON LINE</div>
+    <div id="timer-wrap"><span id="timer-label">SHIFT</span><span id="timer">03:00</span></div>
+    <div id="stats">
+      <span class="stat">Score <b id="score">0</b></span>
+      <span class="stat">Coins <b id="coins">0</b></span>
+      <span class="stat">Combo <b id="combo">—</b></span>
+      <span id="rush"></span>
+    </div>
+  </header>
+  <section id="orders" aria-label="Order board"></section>
+  <div id="stage">
+    <canvas id="game" width="1280" height="300"></canvas>
+    <div id="overlay" class="hidden"></div>
+  </div>
+  <footer id="controls">
+    <span id="hint">Welcome to Saffron Line.</span>
+    <span class="buttons">
+      <button id="mute-btn" type="button">Sound: on</button>
+      <button id="pause-btn" type="button">Pause (P)</button>
+      <button id="restart-btn" type="button">Restart (R)</button>
+    </span>
+  </footer>
+  <p id="recipes-line">Recipes: Tomato Soup · Green Salad · Grilled Fish · Cheese Sandwich · Fish Soup · Bruschetta · Onion Soup · Garden Plate · Seared Fish · Tomato Bake · Fish Sandwich · Harvest Soup — take food off the heat in the green PERFECT window (+50), use alt routes (Smokey · Charred · Pan-toasted) for a bonus, and gold VIP tickets pay ×3.</p>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

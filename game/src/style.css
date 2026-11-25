@@ -1,0 +1,103 @@
+/* Saffron Line — warm wood, brass and saffron. Fixed 1280x480 stage. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #2B2118; }
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #2B2118; }
+#app { width: 1280px; height: 480px; margin: 0 auto; background: #F6E8C8; overflow: hidden; }
+
+#topbar {
+  height: 50px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 18px; background: #5A3A22; color: #FBF7EE;
+  border-bottom: 3px solid #D9A441;
+}
+#brand { font-family: Georgia, serif; font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #F2A007; }
+#timer-wrap { display: flex; align-items: baseline; gap: 10px; }
+#timer-label { font-size: 11px; letter-spacing: 2px; color: #D9A441; }
+#timer { font-family: Georgia, serif; font-size: 36px; font-weight: 700; text-shadow: 0 0 12px rgba(242, 160, 7, 0.55); }
+#timer.danger { color: #FF6B57; animation: timerpulse 0.8s ease-in-out infinite alternate; }
+@keyframes timerpulse { from { transform: scale(1); } to { transform: scale(1.14); } }
+#stats { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+#stats .stat b { color: #F2A007; }
+#rush { display: none; font-weight: 800; letter-spacing: 1px; color: #FBF7EE; background: #D64533; padding: 4px 12px; border-radius: 6px; font-size: 17px; }
+#rush.on { display: inline-block; }
+
+#orders {
+  height: 74px; display: flex; gap: 12px; padding: 6px 14px;
+  background: #E3CFA3; border-bottom: 2px solid #7A5230;
+}
+.ticket {
+  flex: 1; position: relative; background: #FBF7EE; border: 2px solid #7A5230;
+  border-radius: 8px; padding: 4px 10px 4px 12px; overflow: hidden;
+}
+.ticket::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: #D9A441;
+}
+.ticket-name { font-family: Georgia, serif; font-size: 16px; font-weight: 700; }
+/* The badge is a drawn plate: ceramic disc, saffron rim ring, and one
+   food mound per recipe step (positioned <i> dots from the renderer). */
+.dish-badge {
+  float: left; position: relative; width: 38px; height: 38px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, #FFFFFF 0 55%, #EFE6D2 78%, #FBF7EE 100%);
+  border: 2px solid #7A5230; box-shadow: inset 0 0 0 3px #F2A007, 0 2px 4px rgba(43,33,24,0.35);
+  margin: 2px 10px 0 0;
+}
+.dish-badge i {
+  position: absolute; width: 11px; height: 11px; border-radius: 50%;
+  border: 1px solid rgba(43,33,24,0.45); box-shadow: inset -2px -2px 3px rgba(0,0,0,0.25);
+}
+.ticket-steps { font-size: 11px; color: #5A4A38; margin-top: 1px; white-space: nowrap; }
+.ticket-alt { font-size: 10px; color: #B85C33; font-weight: 700; white-space: nowrap; }
+/* Gold VIP ticket: gradient paper, gold rail, crown tag. */
+.ticket.vip {
+  background: linear-gradient(135deg, #FFF3C4 0%, #F7D774 55%, #EFBE3C 100%);
+  border-color: #B8860B; box-shadow: 0 2px 10px rgba(242,160,7,0.55);
+}
+.ticket.vip::before { background: #B8860B; }
+.vip-tag {
+  margin-left: 8px; padding: 1px 7px; border-radius: 8px; vertical-align: 2px;
+  background: #B8860B; color: #FFF8DC; font-family: system-ui, sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+}
+.ticket-bar { height: 5px; background: #E8DCC8; border-radius: 3px; margin-top: 3px; }
+.ticket-fill { height: 100%; background: #4E7A3A; border-radius: 3px; }
+.ticket-time { position: absolute; right: 8px; top: 6px; font-size: 13px; font-weight: 700; color: #D64533; }
+.ticket.empty { display: flex; align-items: center; color: #8A7A64; font-style: italic; }
+
+#stage { position: relative; width: 1280px; height: 300px; }
+#game { display: block; width: 1280px; height: 300px; cursor: pointer; }
+#overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(43, 33, 24, 0.55);
+}
+#overlay.hidden { display: none; }
+.panel {
+  background: #FBF7EE; border: 3px solid #D9A441; border-radius: 12px;
+  padding: 18px 28px; text-align: center; max-width: 560px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.panel h1 { font-family: Georgia, serif; margin: 0 0 6px; font-size: 30px; color: #5A3A22; }
+.panel .tagline { font-weight: 700; color: #B85C33; margin: 0 0 10px; }
+.panel p { margin: 6px 0; font-size: 14px; line-height: 1.45; }
+.panel .keys { font-size: 12px; color: #5A4A38; }
+.panel .stars { font-size: 28px; color: #F2A007; letter-spacing: 4px; }
+.panel .best { font-size: 12px; color: #8A7A64; }
+.panel button {
+  margin-top: 10px; padding: 10px 22px; font-size: 16px; font-weight: 700;
+  background: #F2A007; color: #2B2118; border: 2px solid #7A5230; border-radius: 8px;
+  cursor: pointer;
+}
+.panel button:hover { background: #FFB52E; }
+
+#controls {
+  height: 38px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 14px; background: #5A3A22; color: #FBF7EE; font-size: 13px;
+}
+#controls .buttons { display: flex; gap: 8px; }
+#controls button {
+  padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+  background: #FBF7EE; color: #2B2118; border: 2px solid #D9A441; border-radius: 6px;
+}
+#recipes-line {
+  margin: 0; padding: 2px 14px; font-size: 11px; line-height: 14px; color: #F6E8C8;
+  background: #3A2A1A; white-space: nowrap; overflow: hidden;
+}
